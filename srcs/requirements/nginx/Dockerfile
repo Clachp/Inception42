@@ -3,7 +3,7 @@ FROM alpine:3.17
 RUN	apk update && \
 	apk upgrade && \
 	apk add --update openssl nginx vim curl && \
-	mkdir -p /etc/nginx/certificates && \
+	mkdir /etc/nginx/certificates && \
 	openssl req \
 	-x509 \
 	-nodes \
@@ -13,9 +13,9 @@ RUN	apk update && \
 	-days 365 \
 	-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=cchapon.42.fr/UID=cchapon"
 
-RUN mkdir -p /var/run/nginx
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
-COPY conf/nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /var/run/nginx
 
 EXPOSE 443
 
