@@ -13,9 +13,10 @@ RUN	apk update && \
 	-days 365 \
 	-subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=cchapon.42.fr/UID=cchapon"
 
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-
 RUN mkdir -p /var/run/nginx
+
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./tools/hello.html /home/hello.html
 
 EXPOSE 443
 
