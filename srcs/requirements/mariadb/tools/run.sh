@@ -1,3 +1,5 @@
+#!/bin/sh
+
 service mysql start;
 
 mysql -e "CREATE DATABASE IF NO EXISTS \`${SQL_DATABASE}\`";
