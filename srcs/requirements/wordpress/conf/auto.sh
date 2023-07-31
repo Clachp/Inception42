@@ -44,9 +44,12 @@ wp core download
 
 # create the wp-config.php file
 wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASS
+1/10 [--dbpass=<dbpass>]: type_your_password
+Success: Generated 'wp-config.php' file.
 
 # create the database
 wp db create
+Success: Database created.
 
 # install WordPress (less than 5 mins)
 wp core install --url=$SITE_URL --title="$SITE_TITLE" --admin_user=$SITE_USER --admin_password=$SITE_PASS --admin_email=$SITE_EMAIL
