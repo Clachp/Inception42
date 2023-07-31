@@ -8,10 +8,15 @@ RUN apt-get update && apt-get upgrade && \
     mariadb-client
 
 RUN wget https://wordpress.org/latest.tar.gz && \
-    tar -xzvf latest.tar.gz && rm -rf latest.tar.gz && \
-    mv wordpress /var/www
+    tar -xzvf latest.tar.gz && rm -rf latest.tar.gz
+    #mv wordpress /var/www/
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
+
+
+COPY conf/auto.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/auto.sh
+#ENTRYPOINT ["/usr/local/bin/auto.sh"]
 

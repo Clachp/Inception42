@@ -8,14 +8,7 @@ if [ -f ./wordpress/wp-config.php ]
 then
     echo "wordpress already exists"
 else
-
-    sed -i "s/username_here/$MYSQL_USER/g" wp-config-sample.php
-    sed -i "s/password_here/$MYSQL_PASSWORD/g" wp-config-sample.php
-	sed -i "s/localhost/$MYSQL_HOSTNAME/g" wp-config-sample.php
-	sed -i "s/database_name_here/$MYSQL_DATABASE/g" wp-config-sample.php
-	mv wp-config-sample.php wp-config.php
-
-    # Installation:
+# Installation:
 
 ## Download the script to your home directory
 # Make sure it has execute permissions (`chmod +x wp-install-core-sub-dir.sh`).
@@ -27,16 +20,16 @@ else
 # $ cd mysite
 # $ wp-install-core-sub-dir {sub-directory} {db_name} {db_user} {db_pass} {site_url} "{site_title}" {admin_user} {admin_pass} {admin_email}
 
-CORE_DIR=${1-'wp'}
-DB_NAME=${2-'wordpress'}
-DB_USER=${3-'root'}
-DB_PASS=${4-'password'}
+#CORE_DIR=${1-'wp'}
+#DB_NAME=${2-'wordpress'}
+#DB_USER=${3-'root'}
+#DB_PASS=${4-'password'}
 
-SITE_URL=${5-'https://wordpress.test'}
-SITE_TITLE=${6-'WordPress Site in a Subdirectory'}
-SITE_USER=${7-'admin'}
-SITE_PASS=${8-'password'}
-SITE_EMAIL=${9-'your@email.com'}
+#SITE_URL=${5-'https://wordpress.test'}
+#SITE_TITLE=${6-'WordPress Site in a Subdirectory'}
+#SITE_USER=${7-'admin'}
+#SITE_PASS=${8-'password'}
+#SITE_EMAIL=${9-'your@email.com'}
 
 # create the dir for the core files
 mkdir $CORE_DIR
