@@ -2,13 +2,13 @@
 
 sleep 10
 
+cd /var/www/wordpress
+
 if [ -f ./wordpress/wp-config.php ]
 then
     echo "wordpress already exists"
 else
-    rm -rf /etc/php/7.3/fpm/pool.d/www.conf
 
-    cd /html/wordpress
     sed -i "s/username_here/$MYSQL_USER/g" wp-config-sample.php
     sed -i "s/password_here/$MYSQL_PASSWORD/g" wp-config-sample.php
 	sed -i "s/localhost/$MYSQL_HOSTNAME/g" wp-config-sample.php
