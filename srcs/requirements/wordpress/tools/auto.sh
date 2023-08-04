@@ -11,8 +11,6 @@ SITE_USER=${7-'admin'}
 SITE_PASS=${8-'password'}
 SITE_EMAIL=${9-'your@email.com'}
 
-sleep 10
-
 #cd /var/www/wordpress
 
 if [ -f ./wordpress/wp-config.php ]
@@ -27,34 +25,21 @@ else
 # Install the script in one of the folders in your PATH. (`mv wp-install-core-sub-dir.sh /usr/local/bin/wp-install-core-sub-dir`)
 
 #Usage:
-
-# $ mkdir mysite
-# $ cd mysite
+# create the dir for the core files
+mkdir /var/www/html
+cd /var/www/html
 # $ wp-install-core-sub-dir {sub-directory} {db_name} {db_user} {db_pass} {site_url} "{site_title}" {admin_user} {admin_pass} {admin_email}
 
-# create the dir for the core files
-mkdir $CORE_DIR
-cd $CORE_DIR
-
-adduser $SITE_USER 
-su $SITE_USER
-
-download WordPress files
+#download WordPress files
 wp core download
+cd ../
 
 # create the wp-config.php file
-wp config create --dbname=$DB_NAME \
-    --dbuser=$DB_USER \
-    --dbpass=$DB_PASS \
-    --dbhost=mariadb:3306 \
+wp config create --dbname=$MYSQL_DATABASE \
+    --dbuser=$MYSQL_USER \
+    --dbpass=$MYSQL_PASSWORD \
+    --dbhost='localhost' \
     --path='/wordpress'
-1/10 [--dbpass=<dbpass>]:
-Success: Generated 'wp-config.php' file.
-
-
-# create the database
-wp db create
-Success: echo 'Database created.'
 
 # install WordPress (less than 5 mins)
 wp core install --url=$SITE_URL --title="$SITE_TITLE" --admin_user=$SITE_USER --admin_password=$SITE_PASS --admin_email=$SITE_EMAIL
