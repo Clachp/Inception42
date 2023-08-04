@@ -18,5 +18,9 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 COPY conf/auto.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/auto.sh
-#ENTRYPOINT ["/usr/local/bin/auto.sh"]
+#ENTRYPOINT ["conf/auto.sh"]
+
+EXPOSE 3306
+
+VOLUME /var/www/html
 

@@ -39,8 +39,8 @@ cd $CORE_DIR
 adduser $SITE_USER 
 su $SITE_USER
 
-# download WordPress files
-# wp core download
+download WordPress files
+wp core download
 
 # create the wp-config.php file
 wp config create --dbname=$DB_NAME \
