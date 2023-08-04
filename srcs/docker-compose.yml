@@ -2,24 +2,22 @@ version: '3'
 
 services:
   db:
-    #image:
-    build: ./requirements/mariadb/
     container_name: mariadb
+    build: ./requirements/mariadb/.
     restart: unless-stopped #always
     env_file: ../.env
     environment:
       - 
     volumes:
       - db_data:/var/lib/mysql
-    command:
-    networks:
+#    command:
+    networks: inception
 
-services:
   wordpress:
     depends_on:
       - db
-  build: ./requirements/wordpress
   container_name: wordpress
+  build: ./requirements/wordpress
   ports:
     - 
   restart: always
