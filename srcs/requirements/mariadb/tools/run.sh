@@ -2,7 +2,7 @@
 
 service mysql start;
 
-mysql -e "CREATE DATABASE IF NO EXISTS \`${MYSQL_DATABASE}\`";
+mysql -e "CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`";
 
 mysql -e "CREATE USER IF NOT EXISTS \`${MYSQL_USER}\`@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';"
 
