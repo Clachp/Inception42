@@ -10,11 +10,10 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/local/bin/wp
 
+COPY conf/wwwp.conf /etc/php/7.3/fpm/pool.d/www.conf
 ##COPY conf/auto.sh /usr/local/bin
 ##RUN chmod +x /usr/local/bin/auto.sh
 #ENTRYPOINT ["conf/auto.sh"]
-USER www-data
+##USER www-data
 EXPOSE 3306
-
-VOLUME /var/www/html
 

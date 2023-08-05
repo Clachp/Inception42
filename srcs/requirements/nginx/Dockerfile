@@ -1,8 +1,7 @@
-FROM alpine:3.17
+FROM debian:buster
 
-RUN	apk update && \
-	apk upgrade && \
-	apk add --update openssl nginx vim curl && \
+RUN	apt-get update && apt-get upgrade && \
+	apt-get install -y openssl nginx curl && \
 	mkdir /etc/nginx/certificates && \
 	openssl req \
 	-x509 \
