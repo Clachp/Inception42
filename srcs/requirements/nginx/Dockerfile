@@ -15,7 +15,7 @@ RUN	apt-get update && apt-get upgrade && \
 RUN mkdir -p /var/run/nginx
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-COPY ./tools/hello.html /home/hello.html
+COPY ./tools/hello.html /var/www/html/hello.html
 
 EXPOSE 443
 
