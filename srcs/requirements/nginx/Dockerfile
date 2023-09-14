@@ -1,8 +1,8 @@
 FROM debian:buster
 
 RUN	apt-get update && apt-get upgrade && \
-	apt-get install -y openssl nginx curl && \
-	mkdir /etc/nginx/certificates && \
+	apt-get install -y openssl nginx curl vim && \
+	mkdir -p /etc/nginx/certificates && \
 	openssl req \
 	-x509 \
 	-nodes \

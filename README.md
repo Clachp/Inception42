@@ -6,11 +6,15 @@ Inception is a 42 school's project aiming to set an LEMP (Linux, Nginx, MySQL, P
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 
-```bash
-pip install foobar
-```
+
 
 ## Usage
+
+running nginx container 
+```bash
+docker run -p 443:443 nginx:42.0
+```
+Open the web [page](https://cchapon.42.fr/) in the browser
 
 ```python
 import foobar
