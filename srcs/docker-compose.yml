@@ -1,39 +1,45 @@
-version: '3'
+version: '3.8'
 
+networks:
+  inception:
+    name: inception
+    driver: bridge
+  
 services:
+  nginx:
+    image: nginx:42.0
+    build: ./requirements/nginx/.
+    container_name: nginx
+    ports:
+      - '443:443'
+#    network: ?
+
   db:
-    container_name: mariadb
+    image: mariadb:42.0
     build: ./requirements/mariadb/.
+    container_name: mariadb
     restart: unless-stopped #always
-    env_file: .env
+    env_file: ./.env
     environment:
-      - 
+      - 3306:3306 #?
     volumes:
-      - db_data:/var/lib/mysql
-#    command:
-    networks: inception
+      - type: bind
+        source: ../../data/database
+        target: /var/lib/mysql
 
   wordpress:
     depends_on:
       - db
-  container_name: wordpress
-  build: ./requirements/wordpress
-  ports:
-    - 
-  restart: always
-  env_file : .env
-  environment:
-    - WORDPRESS_DB_HOST=db:3306
-    - WORDPRESS_DB_USER=$MYSQL_USER
-    - WORDPRESS_DB_PASSWORD=$MYSQL_PASSWORD
-    - WORDPRESS_DB_NAME=wordpress
-  volumes:
-    - wordpress:/var/www/html
-  
-  nginx:
+      - nginx #?
+    image: wordpress:42.0
+    build: ./requirements/wordpress/.
+    container_name: wordpress
     ports:
-      - 
-
-
-#volumes:
-#  db_data: {}
+      - 9000:9000 #?
+    restart: always
+    env_file : ./.env
+    volumes:
+      - type: bind
+        source: ../../data/worpress
+        target: /var/www/html
+  
