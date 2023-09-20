@@ -1,45 +1,46 @@
 version: '3.8'
-
-networks:
-  inception:
-    name: inception
-    driver: bridge
   
 services:
-  nginx:
-    image: nginx:42.0
+  nginx: 
     build: ./requirements/nginx/.
-    container_name: nginx
+    image: nginx:42.0
     ports:
       - '443:443'
-#    network: ?
+    links:
+      - 'wordpress'
+    volumes:
+      - 
 
   db:
+    build: ./requirements/mariadb/. 
     image: mariadb:42.0
-    build: ./requirements/mariadb/.
-    container_name: mariadb
-    restart: unless-stopped #always
-    env_file: ./.env
+    restart: always
     environment:
-      - 3306:3306 #?
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: claire
+      MYSQL_PASSWORD: claire123
+    ports:
+      - '3306:3306'
     volumes:
-      - type: bind
-        source: ../../data/database
-        target: /var/lib/mysql
+      - data:/var/lib/mysql
 
   wordpress:
     depends_on:
       - db
-      - nginx #?
     image: wordpress:42.0
     build: ./requirements/wordpress/.
     container_name: wordpress
     ports:
-      - 9000:9000 #?
+      - '9000:9000'
     restart: always
-    env_file : ./.env
-    volumes:
-      - type: bind
-        source: ../../data/worpress
-        target: /var/www/html
-  
+    environment:
+      WORDPRESS_DB_HOST : db:3306
+      WORDPRESS_DB_USER : claire # = MYSQL_USER
+      WORDPRESS_DB_PASSWORD : claire123 # = MYSQL_PASSWORD
+
+networks:
+  inception:
+volumes:
+  data:
+  wordpress:
