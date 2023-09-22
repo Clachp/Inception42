@@ -21,3 +21,7 @@ ALTER USER 'root'@'localhost' IDENTIFIED BY '${MSQL_ROOT_PASSWORD}';
 -- make changes immediately
 FLUSH PRIVILEGES;
 EOS
+
+service mysqld stop
+
+exec mysqld_safe
