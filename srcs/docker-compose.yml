@@ -21,8 +21,6 @@ services:
     image: mariadb:42.0
     restart: always
     env-file: .env
-    ports:
-      - '3306:3306'
     volumes:
       - data:/var/lib/mysql
     networks:
