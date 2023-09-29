@@ -9,18 +9,17 @@ services:
     restart: always
     ports:
       - '443:443'
-        # links:
-        #  - 'wordpress'
     volumes:
       - wordpress:/var/www/html
-    nerworks:
+    networks:
       - inception
 
   db:
     build: ./requirements/mariadb/. 
     image: mariadb:42.0
     restart: always
-    env-file: .env
+    env_file: 
+      - .env
     volumes:
       - data:/var/lib/mysql
     networks:
@@ -31,10 +30,11 @@ services:
       - db
     build: ./requirements/wordpress/.
     image: wordpress:42.0
-    ports:
-      - '9000:9000'
+#    ports:
+#      - '9000:9000'
     restart: always
-    env-file: .env
+    env_file: 
+      - .env
     volumes:
       - wordpress:/var/www/html
     networks:

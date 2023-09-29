@@ -1,5 +1,7 @@
 #!/bin/sh
 
+trap "exit" TERM
+
 service mysql start 
 
 mysql --user=root <<EOS
@@ -17,6 +19,5 @@ echo "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_
 echo "FLUSH PRIVILEGES;" | mysql
 echo "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};" | mysql
 #echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${MSQL_ROOT_PASSWORD}';" | mysql 
-#service mysql stop
-
-#exec "$@"
+mysqladmin -u root -p$MYSQL_ROOT_PASSWORD shutdown
+exec mysqld_safe --datadir=/var/lib/mysql

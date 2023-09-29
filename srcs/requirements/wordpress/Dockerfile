@@ -1,7 +1,7 @@
 FROM debian:buster
 
 # Install php packages
-RUN apt-get update && \
+RUN apt-get update -y && apt-get upgrade -y \
 	apt-get install -y nano wget \
 	php php-cgi php-fpm php-pdo php-mysql php-gd php-cli
 
