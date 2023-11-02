@@ -14,9 +14,8 @@ services:
     networks:
       - inception
 
-  db:
+  mariadb:
     build: ./requirements/mariadb/. 
-    image: mariadb:42.0
     restart: always
     env_file: 
       - .env
@@ -24,12 +23,18 @@ services:
       - data:/var/lib/mysql
     networks:
       - inception
+    healthcheck:
+      test: mysqladmin ping --host=localhost -p${MYSQL_ROOT_PASSWORD}
+      interval: 5s
+      timeout: 1s
+      retries: 20
+      start_period: 5s
 
   wordpress:
     depends_on:
-      - db
+      mariadb:
+        condition: service_healthy
     build: ./requirements/wordpress/.
-    image: wordpress:42.0
 #    ports:
 #      - '9000:9000'
     restart: always

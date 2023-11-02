@@ -1,29 +1,45 @@
-#!/bin/sh
+#!/bin/bash
+#set -eux
 
-if [ -f ./wordpress/wp-config.php ]
-then
-    echo "wordpress already exists"
-else
+sleep 10
 
-	wp core download --allow-root
+cd /var/www/html/wordpress
 
-	# create the wp-config.php file
-	wp config create --dbname=$MYSQL_DATABASE \
-		--dbuser=$MYSQL_USER \
-		--dbpass=$MYSQL_PASSWORD \
-		--dbhost=localhost --allow-root
+if ! wp core is-installed; then
+wp config create	--allow-root --dbname=${MYSQL_DATABASE} \
+			--dbuser=${MYSQL_USER} \
+			--dbpass=${MYSQL_PASSWORD} \
+			--dbhost=${MYSQL_HOST} \
+			--url=https://${DOMAIN_NAME};
 
-	# install WordPress (less than 5 mins)
-	wp core install --allow-root --url=cchapon.42.fr \
-		--title=Inception \
-		--admin_user=blabla\
-		--admin_password=blabla \
-		--admin_email=blablabla
+wp core install	--allow-root \
+			--url=https://${DOMAIN_NAME} \
+			--title=${SITE_TITLE} \
+			--admin_user=${ADMIN_USER} \
+			--admin_password=${ADMIN_PASSWORD} \
+			--admin_email=${ADMIN_EMAIL};
 
-	echo 'core install done'
+wp user create		--allow-root \
+			${USER1_LOGIN} ${USER1_MAIL} \
+			--role=author \
+			--user_pass=${USER1_PASS} ;
 
-	echo 'Install finished!'
+wp cache flush --allow-root
+
+# it provides an easy-to-use interface for creating custom contact forms and managing submissions, as well as supporting various anti-spam techniques
+wp plugin install contact-form-7 --activate
+
+# set the site language to English
+wp language core install en_US --activate
+
+# set the permalink structure
+wp rewrite structure '/%postname%/'
 
 fi
 
-exec "$@"
+if [ ! -d /run/php ]; then
+	mkdir /run/php;
+fi
+
+# start the PHP FastCGI Process Manager (FPM) for PHP version 7.3 in the foreground
+exec /usr/sbin/php-fpm7.3 -F -R

@@ -1,7 +1,7 @@
 FROM debian:buster
 
 # Install php packages
-RUN apt-get update -y && apt-get upgrade -y \
+RUN apt-get update -y && apt-get upgrade -y && \
 	apt-get install -y nano wget \
 	php php-cgi php-fpm php-pdo php-mysql php-gd php-cli
 
@@ -19,12 +19,10 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 	mv wp-cli.phar /usr/local/bin/wp
 
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/
-COPY conf/wp-config.php /var/www/wordpress
 
 COPY tools/install.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/install.sh
-ENTRYPOINT ["bash", "install.sh"]
 
 EXPOSE 9000
 
-CMD ["usr/sbin/php-fpm7.3", "-F"]
+CMD ["bash", "install.sh"]
