@@ -5,7 +5,8 @@ sleep 10
 
 cd /var/www/html/wordpress
 
-if ! wp core is-installed; then
+if ! wp core is-installed; 
+then
 wp config create	--allow-root --dbname=${MYSQL_DATABASE} \
 			--dbuser=${MYSQL_USER} \
 			--dbpass=${MYSQL_PASSWORD} \
