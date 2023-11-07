@@ -10,5 +10,5 @@ RUN chmod 777 /usr/local/bin/setup.sh
 
 EXPOSE 3306
 
-
+ENTRYPOINT ["setup.sh"]
 
