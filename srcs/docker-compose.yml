@@ -17,31 +17,22 @@ services:
   mariadb:
     build: ./requirements/mariadb/. 
     restart: always
-    env_file: 
+    env_file:
       - .env
     volumes:
-      - data:/var/lib/mysql
+      - "~/cchapon/data/db-data:/var/lib/mysql"
     networks:
       - inception
-    healthcheck:
-      test: mysqladmin ping --host=localhost -p${MYSQL_ROOT_PASSWORD}
-      interval: 5s
-      timeout: 1s
-      retries: 20
-      start_period: 5s
 
   wordpress:
     depends_on:
-      mariadb:
-        condition: service_healthy
+      - mariadb
     build: ./requirements/wordpress/.
-#    ports:
-#      - '9000:9000'
     restart: always
     env_file: 
       - .env
     volumes:
-      - wordpress:/var/www/html
+      - "~/cchapon/data/web-data:/var/www/html"
     networks:
       - inception
 
@@ -49,16 +40,16 @@ networks:
   inception:
     driver: bridge
 
-volumes:
-  data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/cchapon/data/db-data
-      o: bind
-  wordpress:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/cchapon/data/web-data
-      o: bind
+#volumes:
+#  data:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      device: /home/cchapon/data/db-data
+#      o: bind
+#  wordpress:
+#   driver: local
+#    driver_opts:
+#      type: none
+#      device: /home/cchapon/data/web-data
+#      o: bind
