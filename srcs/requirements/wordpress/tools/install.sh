@@ -5,12 +5,11 @@ sleep 10
 
 cd /var/www/html/wordpress
 
-if ! wp core is-installed; 
-then
-wp config create	--allow-root --dbname=${MYSQL_DATABASE} \
-			--dbuser=${MYSQL_USER} \
-			--dbpass=${MYSQL_PASSWORD} \
-			--dbhost=${MYSQL_HOST} \
+if ! wp core is-installed; then
+wp config create	--allow-root --dbname=${DB_NAME} \
+			--dbuser=${DB_USER} \
+			--dbpass=${DB_PASSWORD} \
+			--dbhost=${DB_HOST} \
 			--url=https://${DOMAIN_NAME};
 
 wp core install	--allow-root \
@@ -21,9 +20,9 @@ wp core install	--allow-root \
 			--admin_email=${ADMIN_EMAIL};
 
 wp user create		--allow-root \
-			${USER1_LOGIN} ${USER1_MAIL} \
-			--role=author \
-			--user_pass=${USER1_PASS} ;
+			${USER_LOGIN} ${USER_MAIL} \
+			--role=editor \
+			--user_pass=${USER_PASSWORD} ;
 
 wp cache flush --allow-root
 
