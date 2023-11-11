@@ -25,4 +25,5 @@ RUN chmod +x /usr/local/bin/install.sh
 
 EXPOSE 9000
 
-CMD ["bash", "install.sh"]
+ENTRYPOINT ["/usr/local/bin/auto.sh"]
+CMD ["/usr/sbin/php-fpm7.3", "-F"]
