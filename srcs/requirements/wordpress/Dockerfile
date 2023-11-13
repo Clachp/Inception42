@@ -21,6 +21,8 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/
 
+WORKDIR /var/www/html
+
 COPY tools/install.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/install.sh
 
