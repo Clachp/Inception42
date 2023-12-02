@@ -3,7 +3,8 @@ FROM debian:buster
 # Install php packages
 RUN apt-get update -y && apt-get upgrade -y && \
 	apt-get install -y nano wget \
-	php php-cgi php-fpm php-pdo php-mysql php-gd php-cli
+	php php-cgi php-fpm php-pdo php-mysql php-gd php-cli \
+	default-mysql-client mariadb-client
 
 RUN mkdir /run/php
 
@@ -20,10 +21,12 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/
 
+WORKDIR /var/www/html
+
 COPY tools/install.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/install.sh
 
 EXPOSE 9000
 
-ENTRYPOINT ["/usr/local/bin/auto.sh"]
+ENTRYPOINT ["/usr/local/bin/install.sh"]
 CMD ["/usr/sbin/php-fpm7.3", "-F"]

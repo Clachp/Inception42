@@ -28,4 +28,4 @@ fi
 
 mysqladmin -u root -p${DB_ROOT_PASSWORD} shutdown
 
-exec "$@"
+exec mysqld_safe
