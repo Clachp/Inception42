@@ -12,6 +12,7 @@ logs:
 clean:
 	docker container stop nginx mariadb wordpress
 	docker network rm inception
+	#docker volume rm data wordpress
 
 fclean: clean
 	@sudo rm -rf /home/cchapon/data/db/*

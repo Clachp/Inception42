@@ -16,7 +16,7 @@ services:
       - inception
 
   mariadb:
-    build: ./requirements/mdb/.
+    build: ./requirements/mariadb/.
     image: mariadb:42.0
     container_name: mariadb
     restart: unless-stopped
@@ -51,15 +51,18 @@ services:
 networks:
   inception:
     driver: bridge
+    name: 'inception'
 
 volumes:
   data:
+    name: 'data'
     driver: local
     driver_opts:
       type: 'none'
       device: '/home/cchapon/data/db'
       o: 'bind'
   wordpress:
+    name: 'wordpress'
     driver: local
     driver_opts:
       type: 'none'

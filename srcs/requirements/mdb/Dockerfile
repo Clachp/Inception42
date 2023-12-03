@@ -15,9 +15,9 @@ RUN chmod -R 755 /var/run/mysqld/
 RUN chown mysql:mysql /var/lib/mysql/
 RUN chmod -R 755 /var/lib/mysql/
 
+COPY tools/setup.sh /usr/local/bin/
+RUN chmod 777 /usr/local/bin/setup.sh
+
 EXPOSE 3306
 
-COPY ./tools/dbscript.sh ./
-RUN chmod +x ./dbscript.sh
-
-ENTRYPOINT ["bash", "./dbscript.sh"]
+ENTRYPOINT ["setup.sh"]

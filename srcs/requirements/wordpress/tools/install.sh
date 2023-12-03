@@ -9,7 +9,7 @@ else
 	mkdir -p wordpress
 	cd wordpress
 
-	##wp core download --allow-root
+	wp core download --allow-root
 
 	wp config create --allow-root \
 		--dbname=$DB_NAME \
