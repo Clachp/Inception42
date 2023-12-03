@@ -1,4 +1,5 @@
 #!/bin/bash
+#set -eux
 
 sleep 10
 
@@ -32,3 +33,5 @@ else
 	wp cache flush --allow-root
 
 fi
+
+exec /usr/sbin/php-fpm7.4 -F -R
