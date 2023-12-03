@@ -11,7 +11,7 @@ services:
     ports:
       - '443:443'
     volumes:
-      - wordpress:/var/www/html
+      - wordpress:/var/www/html/wordpress
     networks:
       - inception
 
@@ -27,7 +27,7 @@ services:
     networks:
       - inception
     healthcheck:
-      test: mysqladmin ping --host=localhost -uroot -p${DB_ROOT_PASSWORD}
+      test: mysqladmin ping --host=localhost -p${DB_ROOT_PASSWORD}
       interval: 5s
       timeout: 1s
       retries: 20
@@ -44,7 +44,7 @@ services:
     env_file: 
       - .env
     volumes:
-      - wordpress:/var/www/html
+      - wordpress:/var/www/html/wordpress
     networks:
       - inception
 
@@ -57,11 +57,11 @@ volumes:
     driver: local
     driver_opts:
       type: 'none'
-      device: '/home/cchapon/data/db-data'
+      device: '/home/cchapon/data/db'
       o: 'bind'
   wordpress:
     driver: local
     driver_opts:
       type: 'none'
-      device: '/home/cchapon/data/web-data'
+      device: '/home/cchapon/data/wp'
       o: 'bind'
