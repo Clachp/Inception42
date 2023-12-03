@@ -6,8 +6,6 @@ RUN apt-get update -y && apt-get upgrade -y && \
 	php7.4 php-cgi php-fpm php-pdo php-mysql php-gd php-cli \
 	default-mysql-client mariadb-client
 
-RUN mkdir /run/php
-
 # Install wordpress latest version
 RUN wget https://wordpress.org/latest.tar.gz -P /var/www/html && \
 	cd /var/www/html && \
@@ -23,7 +21,7 @@ RUN chown -R www-data:www-data /var/www/* && chmod -R 755 /var/www/*
 
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/
 
-WORKDIR /var/www/html/
+#WORKDIR /var/www/html/
 
 COPY tools/install.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/install.sh

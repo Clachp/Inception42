@@ -1,22 +1,19 @@
 #!/bin/bash
 #set -eux
 
-sleep 10
+if [ ! -d /run/php ]; then
+	mkdir /run/php;
+fi
 
-if [ -d "wordpress"]; then
-	echo "wordpress already exists"
-else
-	echo "creating wordpress folder"
-	mkdir -p wordpress
-	cd wordpress
+cd /var/www/html/wordpress
 
-	wp core download --allow-root
+if ! wp core is-installed --allow-root; then
 
 	wp config create --allow-root \
 		--dbname=$DB_NAME \
 		--dbuser=$DB_USER \
 		--dbpass=$DB_PASSWORD \
-		--dbhost=$DB_HOST
+		--dbhost=$DB_HOST \
 		--url=https://$DOMAIN_NAME;
 
 	wp core install	--allow-root \
@@ -26,9 +23,9 @@ else
 		--admin_password=$ADMIN_PASSWORD \
 		--admin_email=$ADMIN_EMAIL;
 
-	wp user create --allow-root $USER_LOGIN $USER_MAIL \
-		--role=editor \
-		--user_pass=$USER_PASSWORD;
+	wp user create --allow-root \
+		$USER_LOGIN $USER_MAIL \
+		--user_pass=$USER_PASSWORD 
 
 	wp cache flush --allow-root
 
