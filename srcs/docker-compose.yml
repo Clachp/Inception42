@@ -57,11 +57,11 @@ volumes:
     driver: local
     driver_opts:
       type: 'none'
-      device: /home/cchapon/data/db-data
+      device: '/home/cchapon/data/db-data'
       o: 'bind'
   wordpress:
     driver: local
     driver_opts:
       type: 'none'
-      device: /home/cchapon/data/web-data
+      device: '/home/cchapon/data/web-data'
       o: 'bind'
