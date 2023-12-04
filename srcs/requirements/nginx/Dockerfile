@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN	apt-get update -y && apt-get upgrade -y && \
-	apt-get install -y openssl nginx curl vim && \
+	apt-get install -y openssl nginx && \
 	mkdir -p /etc/nginx/certificates && \
 	openssl req \
 	-x509 \
@@ -14,8 +14,10 @@ RUN	apt-get update -y && apt-get upgrade -y && \
 
 RUN mkdir -p /var/run/nginx
 
+RUN mkdir -p /var/www/html && chmod -R 755 /var/www/html
+RUN chown -R www-data:www-data /var/www/html
+
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-COPY ./tools/hello.html /var/www/html/hello.html
 
 EXPOSE 443
 
