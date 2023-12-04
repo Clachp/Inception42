@@ -5,7 +5,7 @@ if [ ! -d /run/php ]; then
 	mkdir /run/php;
 fi
 
-cd /var/www/html/wordpress
+#cd /var/www/html/wordpress
 
 if ! wp core is-installed --allow-root; then
 
@@ -14,7 +14,8 @@ if ! wp core is-installed --allow-root; then
 		--dbuser=$DB_USER \
 		--dbpass=$DB_PASSWORD \
 		--dbhost=$DB_HOST \
-		--url=https://$DOMAIN_NAME;
+		--path='/var/www/html/wordpress';
+		#--url=https://$DOMAIN_NAME;
 
 	wp core install	--allow-root \
 		--url=https://$DOMAIN_NAME \
