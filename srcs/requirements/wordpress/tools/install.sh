@@ -25,7 +25,7 @@ if [ ! -f "wp-config.php" ]; then
 		--dbuser=$DB_USER \
 		--dbpass=$DB_PASSWORD \
 		--dbhost=$DB_HOST \
-		--path='/var/www/html/'
+		--path='/var/www/html';
 
 	echo "Wordpress config file installed"
 

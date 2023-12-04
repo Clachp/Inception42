@@ -1,5 +1,6 @@
 all: 
-	mkdir -p /home/cchapon/data/db /home/cchapon/data/wp
+	mkdir -p /home/cchapon/data/db 
+	mkdir -p /home/cchapon/data/wp
 	docker compose -f ./srcs/docker-compose.yml up -d --build
 
 down:
